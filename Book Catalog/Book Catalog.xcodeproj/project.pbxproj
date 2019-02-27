@@ -52,11 +52,11 @@
 		771EF0222226D0BB0033B8EC /* Book Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				771EF02F2226D0BD0033B8EC /* Info.plist */,
 				771EF0232226D0BB0033B8EC /* AppDelegate.swift */,
 				771EF02A2226D0BD0033B8EC /* Assets.xcassets */,
 				771EF0272226D0BB0033B8EC /* Main.storyboard */,
 				771EF02C2226D0BD0033B8EC /* LaunchScreen.storyboard */,
-				771EF02F2226D0BD0033B8EC /* Info.plist */,
 			);
 			path = "Book Catalog";
 			sourceTree = "<group>";
