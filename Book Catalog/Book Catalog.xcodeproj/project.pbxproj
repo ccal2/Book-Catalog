@@ -18,6 +18,7 @@
 		779B4B50222848E5008268E1 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B4F222848E5008268E1 /* CollectionViewDataSource.swift */; };
 		779B4B5422285BE1008268E1 /* UIColor+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B5322285BE0008268E1 /* UIColor+Name.swift */; };
 		77ED41372226D73100B70BFD /* Catalog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77ED41352226D73100B70BFD /* Catalog.xcdatamodeld */; };
+		77ED413B2226D79400B70BFD /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77ED413A2226D79400B70BFD /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,8 @@
 		779B4B4F222848E5008268E1 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		779B4B5322285BE0008268E1 /* UIColor+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Name.swift"; sourceTree = "<group>"; };
 		77ED41362226D73100B70BFD /* Book.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Book.xcdatamodel; sourceTree = "<group>"; };
+		77ED41382226D79100B70BFD /* Book Catalog.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Book Catalog.entitlements"; sourceTree = "<group>"; };
+		77ED413A2226D79400B70BFD /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77ED413B2226D79400B70BFD /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +56,7 @@
 			children = (
 				771EF0222226D0BB0033B8EC /* Book Catalog */,
 				771EF0212226D0BB0033B8EC /* Products */,
+				77ED41392226D79400B70BFD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,8 +83,17 @@
 				771EF02C2226D0BD0033B8EC /* LaunchScreen.storyboard */,
 				779B4B5322285BE0008268E1 /* UIColor+Name.swift */,
 				77ED41352226D73100B70BFD /* Catalog.xcdatamodeld */,
+				77ED41382226D79100B70BFD /* Book Catalog.entitlements */,
 			);
 			path = "Book Catalog";
+			sourceTree = "<group>";
+		};
+		77ED41392226D79400B70BFD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77ED413A2226D79400B70BFD /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -114,6 +128,14 @@
 				TargetAttributes = {
 					771EF01F2226D0BB0033B8EC = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -306,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Book Catalog/Book Catalog.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S58NF8SQTX;
 				INFOPLIST_FILE = "Book Catalog/Info.plist";
@@ -324,6 +347,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Book Catalog/Book Catalog.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S58NF8SQTX;
 				INFOPLIST_FILE = "Book Catalog/Info.plist";
