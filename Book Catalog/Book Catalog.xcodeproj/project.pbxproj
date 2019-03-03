@@ -13,6 +13,11 @@
 		771EF02E2226D0BD0033B8EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 771EF02C2226D0BD0033B8EC /* LaunchScreen.storyboard */; };
 		779B4B40222711AC008268E1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B3F222711AC008268E1 /* HomeViewController.swift */; };
 		779B4B422227125C008268E1 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B412227125C008268E1 /* BookCollectionViewCell.swift */; };
+		779B4B462227FF2A008268E1 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B452227FF2A008268E1 /* Book.swift */; };
+		779B4B4A2228020D008268E1 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B492228020D008268E1 /* CoreDataManager.swift */; };
+		779B4B50222848E5008268E1 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B4F222848E5008268E1 /* CollectionViewDataSource.swift */; };
+		779B4B5422285BE1008268E1 /* UIColor+Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B5322285BE0008268E1 /* UIColor+Name.swift */; };
+		77ED41372226D73100B70BFD /* Catalog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 77ED41352226D73100B70BFD /* Catalog.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		771EF02F2226D0BD0033B8EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		779B4B3F222711AC008268E1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		779B4B412227125C008268E1 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		779B4B452227FF2A008268E1 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
+		779B4B492228020D008268E1 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		779B4B4F222848E5008268E1 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
+		779B4B5322285BE0008268E1 /* UIColor+Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Name.swift"; sourceTree = "<group>"; };
+		77ED41362226D73100B70BFD /* Book.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Book.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,9 +70,14 @@
 				771EF0232226D0BB0033B8EC /* AppDelegate.swift */,
 				779B4B3F222711AC008268E1 /* HomeViewController.swift */,
 				779B4B412227125C008268E1 /* BookCollectionViewCell.swift */,
+				779B4B452227FF2A008268E1 /* Book.swift */,
+				779B4B492228020D008268E1 /* CoreDataManager.swift */,
+				779B4B4F222848E5008268E1 /* CollectionViewDataSource.swift */,
 				771EF02A2226D0BD0033B8EC /* Assets.xcassets */,
 				771EF0272226D0BB0033B8EC /* Main.storyboard */,
 				771EF02C2226D0BD0033B8EC /* LaunchScreen.storyboard */,
+				779B4B5322285BE0008268E1 /* UIColor+Name.swift */,
+				77ED41352226D73100B70BFD /* Catalog.xcdatamodeld */,
 			);
 			path = "Book Catalog";
 			sourceTree = "<group>";
@@ -139,8 +154,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				779B4B422227125C008268E1 /* BookCollectionViewCell.swift in Sources */,
+				779B4B5422285BE1008268E1 /* UIColor+Name.swift in Sources */,
+				77ED41372226D73100B70BFD /* Catalog.xcdatamodeld in Sources */,
 				771EF0242226D0BB0033B8EC /* AppDelegate.swift in Sources */,
 				779B4B40222711AC008268E1 /* HomeViewController.swift in Sources */,
+				779B4B4A2228020D008268E1 /* CoreDataManager.swift in Sources */,
+				779B4B462227FF2A008268E1 /* Book.swift in Sources */,
+				779B4B50222848E5008268E1 /* CollectionViewDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +360,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		77ED41352226D73100B70BFD /* Catalog.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				77ED41362226D73100B70BFD /* Book.xcdatamodel */,
+			);
+			currentVersion = 77ED41362226D73100B70BFD /* Book.xcdatamodel */;
+			name = Catalog.xcdatamodeld;
+			path = ../Catalog.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 771EF0182226D0BB0033B8EC /* Project object */;
 }

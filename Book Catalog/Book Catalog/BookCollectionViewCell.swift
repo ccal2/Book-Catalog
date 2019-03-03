@@ -24,4 +24,10 @@ class BookCollectionViewCell: UICollectionViewCell {
         self.authorNameLabel.text = authorName
     }
     
+    func configure(for book: Book) {
+        self.backgroundColor = UIColor.fromName(book.colorName)
+        self.titleLabel.text = book.name
+        self.authorNameLabel.text = book.authorName
+    }
+    
 }
