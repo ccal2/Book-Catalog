@@ -3,10 +3,10 @@
     <entity name="Book" representedClassName=".Book" syncable="YES">
         <attribute name="authorName" attributeType="String" syncable="YES"/>
         <attribute name="colorName" attributeType="String" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="recordName" attributeType="String" syncable="YES"/>
+        <attribute name="title" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Book" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, CollectionViewDataSourceDelegate {
     
     func setupCollectionView() {
         let request = NSFetchRequest<Book>(entityName: Book.entityName)
-        let sortDescriptor = NSSortDescriptor(key: Book.key(.name), ascending: true)
+        let sortDescriptor = NSSortDescriptor(key: Book.key(.title), ascending: true)
         
         request.sortDescriptors = [sortDescriptor]
         request.fetchBatchSize = 20
