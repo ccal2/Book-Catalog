@@ -67,7 +67,6 @@ final class CloudKitManager {
                     Book.delete(recordName: record.recordID.recordName, from: CoreDataManager.context)
                 }
                 
-                _ = CoreDataManager.context.saveOrRollback()
                 completion()
             }
         }
