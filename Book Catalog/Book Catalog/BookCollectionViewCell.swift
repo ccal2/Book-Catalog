@@ -26,7 +26,7 @@ class BookCollectionViewCell: UICollectionViewCell {
     
     func configure(for book: Book) {
         self.backgroundColor = UIColor.fromName(book.colorName)
-        self.titleLabel.text = book.name
+        self.titleLabel.text = book.title
         self.authorNameLabel.text = book.authorName
     }
     

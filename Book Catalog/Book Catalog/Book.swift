@@ -17,7 +17,7 @@ final class Book: NSManagedObject {
     
     @NSManaged fileprivate(set) var recordName: String
     @NSManaged fileprivate(set) var colorName: String
-    @NSManaged fileprivate(set) var name: String
+    @NSManaged fileprivate(set) var title: String
     @NSManaged fileprivate(set) var authorName: String
     
     
@@ -29,7 +29,7 @@ final class Book: NSManagedObject {
         
         newBook.setValue(recordName, forKey: Book.key(.recordName))
         newBook.setValue(color.name, forKey: Book.key(.colorName))
-        newBook.setValue(name, forKey: Book.key(.name))
+        newBook.setValue(name, forKey: Book.key(.title))
         newBook.setValue(authorName, forKey: Book.key(.authorName))
         
         print("inserted new book:", newBook)
@@ -54,7 +54,7 @@ final class Book: NSManagedObject {
             let record = result[0]
             
             record.colorName = color.name
-            record.name = name
+            record.title = name
             record.authorName = authorName
             
             print("Updated local record with recordName:", recordName)
@@ -90,7 +90,7 @@ extension Book {
     enum Keys: String {
         case recordName
         case colorName
-        case name
+        case title
         case authorName
     }
     
