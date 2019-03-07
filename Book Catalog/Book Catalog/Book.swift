@@ -23,13 +23,13 @@ final class Book: NSManagedObject {
     
     // MARK: - Methods
     
-    static func insert(recordName: String, color: UIColor, name: String, authorName: String, into context: NSManagedObjectContext) {
+    static func insert(recordName: String, color: UIColor, title: String, authorName: String, into context: NSManagedObjectContext) {
         let entity = NSEntityDescription.entity(forEntityName: Book.entityName, in: context)
         let newBook = NSManagedObject(entity: entity!, insertInto: context)
         
         newBook.setValue(recordName, forKey: Book.key(.recordName))
         newBook.setValue(color.name, forKey: Book.key(.colorName))
-        newBook.setValue(name, forKey: Book.key(.title))
+        newBook.setValue(title, forKey: Book.key(.title))
         newBook.setValue(authorName, forKey: Book.key(.authorName))
         
         print("inserted new book:", newBook)

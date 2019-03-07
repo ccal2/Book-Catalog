@@ -60,7 +60,7 @@ final class CloudKitManager {
             } else if let record = record {
                 switch notification.queryNotificationReason {
                 case .recordCreated:
-                    Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), name: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
+                    Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
                 case .recordUpdated:
                     Book.update(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)]!), name: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, from: CoreDataManager.context)
                 case .recordDeleted:
@@ -88,7 +88,7 @@ final class CloudKitManager {
     
     static func executeQueryOperation(_ operation: CKQueryOperation, completion: @escaping () -> Void) {
         operation.recordFetchedBlock = { (record) in
-            Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), name: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
+            Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
         }
         
         operation.queryCompletionBlock = { (cursor, error) in
