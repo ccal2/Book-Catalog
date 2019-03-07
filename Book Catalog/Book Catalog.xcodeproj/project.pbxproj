@@ -11,6 +11,8 @@
 		771EF0292226D0BB0033B8EC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 771EF0272226D0BB0033B8EC /* Main.storyboard */; };
 		771EF02B2226D0BD0033B8EC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 771EF02A2226D0BD0033B8EC /* Assets.xcassets */; };
 		771EF02E2226D0BD0033B8EC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 771EF02C2226D0BD0033B8EC /* LaunchScreen.storyboard */; };
+		7732D782223082230053BC0F /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7732D781223082230053BC0F /* CloudKitManager.swift */; };
+		7732D7842230CC1C0053BC0F /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7732D7832230CC1C0053BC0F /* UserDefaults+Keys.swift */; };
 		779B4B40222711AC008268E1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B3F222711AC008268E1 /* HomeViewController.swift */; };
 		779B4B422227125C008268E1 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B412227125C008268E1 /* BookCollectionViewCell.swift */; };
 		779B4B462227FF2A008268E1 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = 779B4B452227FF2A008268E1 /* Book.swift */; };
@@ -28,6 +30,8 @@
 		771EF02A2226D0BD0033B8EC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		771EF02D2226D0BD0033B8EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		771EF02F2226D0BD0033B8EC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7732D781223082230053BC0F /* CloudKitManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitManager.swift; sourceTree = "<group>"; };
+		7732D7832230CC1C0053BC0F /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
 		779B4B3F222711AC008268E1 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		779B4B412227125C008268E1 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		779B4B452227FF2A008268E1 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
@@ -76,12 +80,14 @@
 				779B4B3F222711AC008268E1 /* HomeViewController.swift */,
 				779B4B412227125C008268E1 /* BookCollectionViewCell.swift */,
 				779B4B452227FF2A008268E1 /* Book.swift */,
-				779B4B492228020D008268E1 /* CoreDataManager.swift */,
 				779B4B4F222848E5008268E1 /* CollectionViewDataSource.swift */,
+				779B4B492228020D008268E1 /* CoreDataManager.swift */,
+				7732D781223082230053BC0F /* CloudKitManager.swift */,
 				771EF02A2226D0BD0033B8EC /* Assets.xcassets */,
 				771EF0272226D0BB0033B8EC /* Main.storyboard */,
 				771EF02C2226D0BD0033B8EC /* LaunchScreen.storyboard */,
 				779B4B5322285BE0008268E1 /* UIColor+Name.swift */,
+				7732D7832230CC1C0053BC0F /* UserDefaults+Keys.swift */,
 				77ED41352226D73100B70BFD /* Catalog.xcdatamodeld */,
 				77ED41382226D79100B70BFD /* Book Catalog.entitlements */,
 			);
@@ -129,6 +135,9 @@
 					771EF01F2226D0BB0033B8EC = {
 						CreatedOnToolsVersion = 10.1;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Push = {
 								enabled = 1;
 							};
@@ -177,12 +186,14 @@
 			files = (
 				779B4B422227125C008268E1 /* BookCollectionViewCell.swift in Sources */,
 				779B4B5422285BE1008268E1 /* UIColor+Name.swift in Sources */,
+				7732D7842230CC1C0053BC0F /* UserDefaults+Keys.swift in Sources */,
 				77ED41372226D73100B70BFD /* Catalog.xcdatamodeld in Sources */,
 				771EF0242226D0BB0033B8EC /* AppDelegate.swift in Sources */,
 				779B4B40222711AC008268E1 /* HomeViewController.swift in Sources */,
 				779B4B4A2228020D008268E1 /* CoreDataManager.swift in Sources */,
 				779B4B462227FF2A008268E1 /* Book.swift in Sources */,
 				779B4B50222848E5008268E1 /* CollectionViewDataSource.swift in Sources */,
+				7732D782223082230053BC0F /* CloudKitManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
