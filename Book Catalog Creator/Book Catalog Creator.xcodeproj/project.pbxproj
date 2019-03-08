@@ -12,6 +12,7 @@
 		77F378F122328CF2006C8FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F378EF22328CF2006C8FC8 /* Main.storyboard */; };
 		77F378F322328CF3006C8FC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F378F222328CF3006C8FC8 /* Assets.xcassets */; };
 		77F378F622328CF3006C8FC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F378F422328CF3006C8FC8 /* LaunchScreen.storyboard */; };
+		77F3790022328D3E006C8FC8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77F378FF22328D3E006C8FC8 /* CloudKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,8 @@
 		77F378F222328CF3006C8FC8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		77F378F522328CF3006C8FC8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		77F378F722328CF3006C8FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		77F378FD22328D3D006C8FC8 /* Book Catalog Creator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Book Catalog Creator.entitlements"; sourceTree = "<group>"; };
+		77F378FF22328D3E006C8FC8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77F3790022328D3E006C8FC8 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +44,7 @@
 			children = (
 				77F378EA22328CF2006C8FC8 /* Book Catalog Creator */,
 				77F378E922328CF2006C8FC8 /* Products */,
+				77F378FE22328D3E006C8FC8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,14 +59,23 @@
 		77F378EA22328CF2006C8FC8 /* Book Catalog Creator */ = {
 			isa = PBXGroup;
 			children = (
+				77F378F722328CF3006C8FC8 /* Info.plist */,
 				77F378EB22328CF2006C8FC8 /* AppDelegate.swift */,
 				77F378ED22328CF2006C8FC8 /* ViewController.swift */,
 				77F378EF22328CF2006C8FC8 /* Main.storyboard */,
 				77F378F222328CF3006C8FC8 /* Assets.xcassets */,
 				77F378F422328CF3006C8FC8 /* LaunchScreen.storyboard */,
-				77F378F722328CF3006C8FC8 /* Info.plist */,
+				77F378FD22328D3D006C8FC8 /* Book Catalog Creator.entitlements */,
 			);
 			path = "Book Catalog Creator";
+			sourceTree = "<group>";
+		};
+		77F378FE22328D3E006C8FC8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				77F378FF22328D3E006C8FC8 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +110,14 @@
 				TargetAttributes = {
 					77F378E722328CF2006C8FC8 = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -282,6 +304,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Book Catalog Creator/Book Catalog Creator.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S58NF8SQTX;
 				INFOPLIST_FILE = "Book Catalog Creator/Info.plist";
@@ -300,6 +323,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Book Catalog Creator/Book Catalog Creator.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S58NF8SQTX;
 				INFOPLIST_FILE = "Book Catalog Creator/Info.plist";
