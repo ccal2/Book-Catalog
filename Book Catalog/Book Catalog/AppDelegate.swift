@@ -21,8 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        application.registerForRemoteNotifications()
-        
         CoreDataManager.createContainer("Catalog") {
             guard let viewController = self.window?.rootViewController else {
                 fatalError("Error trying to get rootViewController")
@@ -37,25 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        CloudKitManager.subscribeToChanges()
         CloudKitManager.fetchAllRecords()
+        CloudKitManager.fetchChanges()
         
         return true
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        print("Received notification")
-        
-        let dict = userInfo as! [String: NSObject]
-        let notification = CKQueryNotification(fromRemoteNotificationDictionary: dict)
-        
-        if notification.subscriptionID == "publicChanges" {
-            print(notification)
-            
-            CloudKitManager.handleNotification(notification) {
-                completionHandler(.newData)
-            }
-        }
     }
 
 }
