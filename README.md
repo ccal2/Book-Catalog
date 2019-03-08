@@ -1,6 +1,9 @@
 # CloudKitCatalog
 iOS app that loads a book catalog from a CloudKit public database and updates its contents on each launch
 
+<p align="center">
+    <img src="/screenshot.PNG" width="300">
+<p/>
 
 ## Reminder
 If you choose to run this project, please remember to change the app's BundleID and setup the CloudKit container
