@@ -18,6 +18,7 @@ final class CloudKitManager {
     }
     
     static let recordType = "Book"
+    static let changesRecordType = "Change"
     
     
     // MARK: - Methods
@@ -26,49 +27,100 @@ final class CloudKitManager {
         // It's impossible to create instances of this class
     }
     
-    static func subscribeToChanges() {
-        let isSubscribed = UserDefaults.standard.bool(forKey: UserDefaults.key(.subscribedToPublicChanges))
+    static func fetchChanges() {
+        var date: NSDate
         
-        if !isSubscribed {
-            let subscription = CKQuerySubscription(recordType: CloudKitManager.recordType, predicate: NSPredicate(format: "TRUEPREDICATE"), subscriptionID: "publicChanges", options: [.firesOnRecordCreation, .firesOnRecordDeletion, .firesOnRecordUpdate])
-            let notificationInfo = CKSubscription.NotificationInfo()
-            
-            notificationInfo.shouldSendContentAvailable = true
-            subscription.notificationInfo = notificationInfo
-
-            CloudKitManager.publicDatabase.save(subscription) { (subscription, error) in
-                if let error = error {
-                    print("Error creating public subscription:", error)
-                } else {
-                    print("Created publicChanges subscription to Book recordType")
-                    UserDefaults.standard.setValue(true, forKey: UserDefaults.key(.subscribedToPublicChanges))
+        if let lastChangesFetch = UserDefaults.standard.object(forKey: UserDefaults.key(.lastChangesFetch)) as? NSDate {
+            date = lastChangesFetch
+        } else {
+            date = NSDate(timeIntervalSince1970: 0.0)
+        }
+        
+        let predicate = NSPredicate(format: "timestamp >= %@", date)
+        let query = CKQuery(recordType: CloudKitManager.changesRecordType, predicate: predicate)
+        let operation = CKQueryOperation(query: query)
+        
+        var createdRecordNames: [String] = []
+        var updatedRecordNames: [String] = []
+        var deletedRecordNames: [String] = []
+        
+        operation.recordFetchedBlock = { (record) in
+            if let type = record["type"] as? String, let changedRecordName = record["changedRecordName"] as? String {
+                switch type{
+                case "created":
+                    createdRecordNames.append(changedRecordName)
+                case "updated":
+                    updatedRecordNames.append(changedRecordName)
+                case "deleted":
+                    deletedRecordNames.append(changedRecordName)
+                default:
+                    print("invalid change type")
                 }
             }
         }
-    }
-    
-    static func handleNotification(_ notification: CKQueryNotification, completion: @escaping () -> Void) {
-        guard let recordID = notification.recordID else {
-            print("Error: no recordID on notification")
-            
-            return
+        
+        CloudKitManager.executeQueryOperation(operation) {
+            CloudKitManager.updateLocalStorage(created: createdRecordNames, updated: updatedRecordNames, deleted: deletedRecordNames) {
+                UserDefaults.standard.set(NSDate(), forKey: UserDefaults.key(.lastChangesFetch))
+                
+                _ = CoreDataManager.context.saveOrRollback()
+            }
         }
         
-        CloudKitManager.publicDatabase.fetch(withRecordID: recordID) { (record, error) in
+    }
+    
+    static func updateLocalStorage(created: [String], updated: [String], deleted: [String], completion: @escaping () -> Void) {
+        // create books
+        var createdIDs: [CKRecord.ID] = []
+        
+        for recordName in created {
+            let recordID = CKRecord.ID(recordName: recordName)
+            createdIDs.append(recordID)
+        }
+        
+        let createdOperation = CKFetchRecordsOperation(recordIDs: createdIDs)
+        
+        createdOperation.perRecordCompletionBlock = { (record, recordID, error) in
             if let error = error {
                 print("Error fetching record:", error)
             } else if let record = record {
-                switch notification.queryNotificationReason {
-                case .recordCreated:
-                    Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
-                case .recordUpdated:
-                    Book.update(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)]!), name: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, from: CoreDataManager.context)
-                case .recordDeleted:
-                    Book.delete(recordName: record.recordID.recordName, from: CoreDataManager.context)
-                }
-                
+                Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
+            }
+        }
+        
+        // update books
+        var updatedIDs: [CKRecord.ID] = []
+        
+        for recordName in updated {
+            let recordID = CKRecord.ID(recordName: recordName)
+            updatedIDs.append(recordID)
+        }
+        
+        let updatedOperation = CKFetchRecordsOperation(recordIDs: updatedIDs)
+        updatedOperation.addDependency(createdOperation)
+        
+        updatedOperation.perRecordCompletionBlock = { (record, recordID, error) in
+            if let error = error {
+                print("Error fetching record:", error)
+            } else if let record = record {
+                Book.update(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, from: CoreDataManager.context)
+            }
+        }
+        
+        updatedOperation.fetchRecordsCompletionBlock = { (_, error) in
+            if let error = error {
+                print("Error fetching records:", error)
+            } else {
                 completion()
             }
+        }
+        
+        CloudKitManager.publicDatabase.add(createdOperation)
+        CloudKitManager.publicDatabase.add(updatedOperation)
+        
+        // delete books
+        for recordName in deleted {
+            Book.delete(recordName: recordName, from: CoreDataManager.context)
         }
     }
     
@@ -80,6 +132,10 @@ final class CloudKitManager {
             let query = CKQuery(recordType: CloudKitManager.recordType, predicate: predicate)
             let operation = CKQueryOperation(query: query)
             
+            operation.recordFetchedBlock = { (record) in
+                Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
+            }
+            
             CloudKitManager.executeQueryOperation(operation) {
                 UserDefaults.standard.set(true, forKey: UserDefaults.key(.hasLaunchedBefore))
             }
@@ -87,10 +143,6 @@ final class CloudKitManager {
     }
     
     static func executeQueryOperation(_ operation: CKQueryOperation, completion: @escaping () -> Void) {
-        operation.recordFetchedBlock = { (record) in
-            Book.insert(recordName: record.recordID.recordName, color: UIColor.fromName(record[CloudKitManager.key(.colorName)] ?? "brown"), title: record[CloudKitManager.key(.title)]!, authorName: record[CloudKitManager.key(.authorName)]!, into: CoreDataManager.context)
-        }
-        
         operation.queryCompletionBlock = { (cursor, error) in
             if let error = error {
                 print("Error fetching cloudKit records:", error)

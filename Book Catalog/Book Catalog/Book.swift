@@ -35,7 +35,7 @@ final class Book: NSManagedObject {
         print("inserted new book:", newBook)
     }
     
-    static func update(recordName: String, color: UIColor, name: String, authorName: String, from context: NSManagedObjectContext) {
+    static func update(recordName: String, color: UIColor, title: String, authorName: String, from context: NSManagedObjectContext) {
         // Check if the record already exists
         let request = NSFetchRequest<Book>(entityName: Book.entityName)
         request.predicate = NSPredicate(format: "recordName = %@", recordName)
@@ -54,7 +54,7 @@ final class Book: NSManagedObject {
             let record = result[0]
             
             record.colorName = color.name
-            record.title = name
+            record.title = title
             record.authorName = authorName
             
             print("Updated local record with recordName:", recordName)
