@@ -115,22 +115,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
             // Add new book to cloud
             let newBook = Book(recordName: recordName, colorName: colorName, title: title, authorName: authorName)
             CloudKitManager.insert(book: newBook, completion: { (error) in
-                // Check for errors
-                if let error = error {
-                    print("Error inserting new record on cloud:", error)
-                    
-                    if let ckError = error as? CKError {
-                        if ckError.code == CKError.Code.networkUnavailable || ckError.code == CKError.Code.networkFailure {
-                            let networkAlert = UIAlertController(title: "Network unavailable", message: "Please check your network connection and try again", preferredStyle: .alert)
-                            networkAlert.addAction(UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil))
-                            
-                            DispatchQueue.main.async {
-                                self.present(networkAlert, animated: true, completion: nil)
-                            }
-                        }
-                    }
-                } else {
-                    // Add new book to local catalog
+                if !self.checkForNetworkFailure(error) {
                     self.books.append(newBook)
                     self.books.sort(by: { $0.title < $1.title })
                     
