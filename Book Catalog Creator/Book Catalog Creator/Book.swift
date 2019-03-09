@@ -26,4 +26,14 @@ class Book {
         self.title = title
         self.authorName = authorName
     }
+    
+    static func hasRecodName(_ recordName: String, inArray array: [Book]) -> Bool {
+        for book in array {
+            if book.recordName == recordName {
+                return true
+            }
+        }
+        
+        return false
+    }
 }

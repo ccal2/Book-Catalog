@@ -27,6 +27,7 @@ final class CloudKitManager {
         // It's impossible to create instances of this class
     }
     
+    // Fetch book records from cloud
     static func fetchAllRecords(completion: @escaping ([Book]?, Error?) -> Void) {
         let predicate = NSPredicate(format: "TRUEPREDICATE")
         let query = CKQuery(recordType: CloudKitManager.bookRecordType, predicate: predicate)
@@ -57,6 +58,25 @@ final class CloudKitManager {
         }
         
         CloudKitManager.publicDatabase.add(operation)
+    }
+    
+    // New book record
+    static func insert(book: Book, completion: @escaping (Error?) -> Void) {
+        let recordID = CKRecord.ID(recordName: book.recordName)
+        
+        let record = CKRecord(recordType: CloudKitManager.bookRecordType, recordID: recordID)
+        record[CloudKitManager.key(.colorName)] = book.colorName
+        record[CloudKitManager.key(.title)] = book.title
+        record[CloudKitManager.key(.authorName)] = book.authorName
+        
+        CloudKitManager.publicDatabase.save(record) { (record, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                print("record saved on cloud:", record!)
+                completion(nil)
+            }
+        }
     }
 }
 
