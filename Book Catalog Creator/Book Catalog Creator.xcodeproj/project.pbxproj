@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		775AB00622333B6500EA6A59 /* Change.swift in Sources */ = {isa = PBXBuildFile; fileRef = 775AB00522333B6500EA6A59 /* Change.swift */; };
 		77F378EC22328CF2006C8FC8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F378EB22328CF2006C8FC8 /* AppDelegate.swift */; };
 		77F378EE22328CF2006C8FC8 /* CatalogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F378ED22328CF2006C8FC8 /* CatalogViewController.swift */; };
 		77F378F122328CF2006C8FC8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 77F378EF22328CF2006C8FC8 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		775AB00522333B6500EA6A59 /* Change.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Change.swift; sourceTree = "<group>"; };
 		77F378E822328CF2006C8FC8 /* Book Catalog Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Book Catalog Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F378EB22328CF2006C8FC8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		77F378ED22328CF2006C8FC8 /* CatalogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				77F378F722328CF3006C8FC8 /* Info.plist */,
 				77F378EB22328CF2006C8FC8 /* AppDelegate.swift */,
 				77F3790322328F00006C8FC8 /* Book.swift */,
+				775AB00522333B6500EA6A59 /* Change.swift */,
 				77F3790922329449006C8FC8 /* BookCollectionViewCell.swift */,
 				77F378ED22328CF2006C8FC8 /* CatalogViewController.swift */,
 				77F3790122328DA0006C8FC8 /* CloudKitManager.swift */,
@@ -175,6 +178,7 @@
 				77F3790A22329449006C8FC8 /* BookCollectionViewCell.swift in Sources */,
 				77F378EC22328CF2006C8FC8 /* AppDelegate.swift in Sources */,
 				77F3790222328DA0006C8FC8 /* CloudKitManager.swift in Sources */,
+				775AB00622333B6500EA6A59 /* Change.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

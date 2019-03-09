@@ -74,6 +74,27 @@ final class CloudKitManager {
                 completion(error)
             } else {
                 print("record saved on cloud:", record!)
+                
+                // Add change record to cloud
+                let newChange = Change(type: Change.Types.created, timestamp: NSDate(), changedRecordname: book.recordName)
+                CloudKitManager.insert(change: newChange) { (error) in
+                    completion(error)
+                }
+            }
+        }
+    }
+    
+    static func insert(change: Change, completion: @escaping (Error?) -> Void) {
+        let record = CKRecord(recordType: CloudKitManager.changeRecordType)
+        record[CloudKitManager.key(.type)] = change.type
+        record[CloudKitManager.key(.timestamp)] = change.timestamp
+        record[CloudKitManager.key(.changedRecordName)] = change.changedRecordName
+        
+        CloudKitManager.publicDatabase.save(record) { (record, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                print("Saved new change record to cloud:", record!)
                 completion(nil)
             }
         }
@@ -84,13 +105,20 @@ final class CloudKitManager {
 // Keys for the book record fields
 extension CloudKitManager {
     enum Keys: String {
+        // Book
         case colorName
         case title
         case authorName
+        // Change
+        case type
+        case timestamp
+        case changedRecordName
     }
     
     // Get rawValue
     static func key(_ key: CloudKitManager.Keys) -> String {
         return key.rawValue
     }
+    
+    
 }
