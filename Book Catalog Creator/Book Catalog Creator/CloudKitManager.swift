@@ -84,6 +84,26 @@ final class CloudKitManager {
         }
     }
     
+    // Delete book record
+    static func delete(_ book: Book, completion: @escaping (Error?) -> Void) {
+        let recordID = CKRecord.ID(recordName: book.recordName)
+        
+        CloudKitManager.publicDatabase.delete(withRecordID: recordID) { (recordID, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                print("record deleted from cloud with recordID:", recordID!)
+                
+                // Add change record to cloud
+                let newChange = Change(type: Change.Types.deleted, timestamp: NSDate(), changedRecordname: book.recordName)
+                CloudKitManager.insert(change: newChange) { (error) in
+                    completion(error)
+                }
+            }
+        }
+    }
+    
+    // New change record
     static func insert(change: Change, completion: @escaping (Error?) -> Void) {
         let record = CKRecord(recordType: CloudKitManager.changeRecordType)
         record[CloudKitManager.key(.type)] = change.type

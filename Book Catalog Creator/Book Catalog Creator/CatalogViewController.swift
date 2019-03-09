@@ -34,6 +34,39 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         cell.configure(for: book)
     }
     
+    // Delete book from catalog
+    func delete(_ book: Book, at index: Int) {
+        CloudKitManager.delete(book) { (error) in
+            if !self.checkForNetworkFailure(error) {
+                self.books.remove(at: index)
+                
+                DispatchQueue.main.async {
+                    self.colelctionView.reloadData()
+                }
+                
+                print("deleted book record from cloud:", book)
+            }
+        }
+    }
+    
+    // Check for connection error
+    func checkForNetworkFailure(_ error: Error?) -> Bool {
+        if let ckError = error as? CKError {
+            if ckError.code == CKError.Code.networkUnavailable || ckError.code == CKError.Code.networkFailure {
+                let networkAlert = UIAlertController(title: "Network unavailable", message: "Please check your network connection and try again", preferredStyle: .alert)
+                networkAlert.addAction(UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil))
+                
+                DispatchQueue.main.async {
+                    self.present(networkAlert, animated: true, completion: nil)
+                }
+                
+                return true
+            }
+        }
+        
+        return false
+    }
+    
     // MARK: IBActions
     
     @IBAction func insertBook(_ sender: Any) {
@@ -135,6 +168,23 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
         
         textField.delegate = self
+    }
+    
+    // MARK: UICollectionViewDelegate
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let book = self.books[indexPath.row]
+        
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action) in
+            //
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+            self.delete(book, at: indexPath.row)
+        }))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     // MARK: UICollectionViewDataSource
