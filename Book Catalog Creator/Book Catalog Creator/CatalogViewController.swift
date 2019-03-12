@@ -76,28 +76,12 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         alert.addTextField(configurationHandler: self.colorNameTextFieldConfiguration)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (UIAlertAction) in
-            let titleTtextField = alert.textFields![0]
+            let titleTextField = alert.textFields![0]
             let authorNameTextField = alert.textFields![1]
             let colorNameTextField = alert.textFields![2]
             
-            // Check if the fields for book title and author name are empty
-            guard let title = titleTtextField.text, title != "", let authorName = authorNameTextField.text, authorName != "" else {
-                let emptyAlert = UIAlertController(title: "Empty field", message: "You can't save a book without a title or an author", preferredStyle: .alert)
-                emptyAlert.addAction(UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil))
-                
-                DispatchQueue.main.async {
-                    self.present(emptyAlert, animated: true, completion: nil)
-                }
-                
-                return
-            }
-            
-            var colorName: String
-            if let colorName_ = colorNameTextField.text, colorName_ != "" {
-                colorName = colorName_
-            } else {
-                colorName = "brown"
-            }
+            let (title, authorName) = self.getTitleAndAuthorName(titleTextField, authorNameTextField)
+            let colorName = self.getColorName(colorNameTextField)
             
             var recordName = authorName + "--" + title
             recordName = recordName.replacingOccurrences(of: " ", with: "_")
@@ -127,6 +111,32 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         }))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: Get book information
+    
+    func getTitleAndAuthorName(_ titleTextField: UITextField, _ authorNameTextField: UITextField)  -> (String, String) {
+        // Check if the fields for book title and author name are empty
+        guard let title = titleTextField.text, title != "", let authorName = authorNameTextField.text, authorName != "" else {
+            let emptyAlert = UIAlertController(title: "Empty field", message: "You can't save a book without a title or an author", preferredStyle: .alert)
+            emptyAlert.addAction(UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            DispatchQueue.main.async {
+                self.present(emptyAlert, animated: true, completion: nil)
+            }
+            
+            return ("", "")
+        }
+        
+        return (title, authorName)
+    }
+    
+    func getColorName(_ colorNameTextField: UITextField) -> String {
+        if let colorName = colorNameTextField.text, colorName != "" {
+            return colorName
+        } else {
+            return "brown"
+        }
     }
     
     // MARK: UICollectionViewDelegate
