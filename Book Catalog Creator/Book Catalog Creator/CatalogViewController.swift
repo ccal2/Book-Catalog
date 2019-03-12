@@ -129,32 +129,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         self.present(alert, animated: true, completion: nil)
     }
     
-    // Alert textFields' configuration
-    
-    func titleTextFieldConfiguration(textField: UITextField!) {
-        if textField != nil {
-            textField.placeholder = "Book title"
-        }
-        
-        textField.delegate = self
-    }
-    
-    func authorNameTextFieldConfiguration(textField: UITextField!) {
-        if textField != nil {
-            textField.placeholder = "Author name"
-        }
-        
-        textField.delegate = self
-    }
-    
-    func colorNameTextFieldConfiguration(textField: UITextField!) {
-        if textField != nil {
-            textField.placeholder = "Book cover color name"
-        }
-        
-        textField.delegate = self
-    }
-    
     // MARK: UICollectionViewDelegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -192,3 +166,32 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
     
 }
 
+
+// Alert textFields' configuration
+extension CatalogViewController {
+    
+    func titleTextFieldConfiguration(textField: UITextField!) {
+        if textField != nil {
+            textField.placeholder = "Book title"
+        }
+        
+        textField.delegate = self
+    }
+    
+    func authorNameTextFieldConfiguration(textField: UITextField!) {
+        if textField != nil {
+            textField.placeholder = "Author name"
+        }
+        
+        textField.delegate = self
+    }
+    
+    func colorNameTextFieldConfiguration(textField: UITextField!) {
+        if textField != nil {
+            textField.placeholder = "Book cover color name"
+        }
+        
+        textField.delegate = self
+    }
+    
+}
