@@ -49,6 +49,41 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         }
     }
     
+    // Update a book from the catalog
+    func update(_ book: Book, at index: Int) {
+        let alert = UIAlertController(title: "Update book", message: "", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.text = book.title
+            textField.delegate = self
+        })
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.text = book.authorName
+            textField.delegate = self
+        })
+        alert.addTextField(configurationHandler: { (textField) in
+            textField.text = book.colorName
+            textField.delegate = self
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (_) in
+            let newBook = self.getBook(fromTextFields: alert.textFields!, withRecordName: book.recordName)
+            
+            CloudKitManager.update(newBook, completion: { (error) in
+                if !self.checkForNetworkFailure(error) {
+                    self.books.remove(at: index)
+                    self.books.append(newBook)
+                    self.books.sort(by: { $0.title < $1.title })
+                    
+                    DispatchQueue.main.async {
+                        self.colelctionView.reloadData()
+                    }
+                }
+            })
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     // Check for connection error
     func checkForNetworkFailure(_ error: Error?) -> Bool {
         if let ckError = error as? CKError {
@@ -62,6 +97,8 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
                 
                 return true
             }
+        } else if let error = error {
+            print(error)
         }
         
         return false
@@ -157,7 +194,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Update", style: .default, handler: { (action) in
-            //
+            self.update(book, at: indexPath.row)
         }))
         actionSheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
             self.delete(book, at: indexPath.row)

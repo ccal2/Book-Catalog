@@ -103,6 +103,40 @@ final class CloudKitManager {
         }
     }
     
+    // Update book record
+    static func update(_ book: Book, completion: @escaping (Error?) -> Void) {
+        let recordID = CKRecord.ID(recordName: book.recordName)
+        
+        // Fetch record from cloud
+        CloudKitManager.publicDatabase.fetch(withRecordID: recordID) { (record, error) in
+            if let error = error {
+                completion(error)
+            } else {
+                print("Fetched record from cloud:", record!)
+                
+                // Update record
+                let updatedRecord = record!
+                updatedRecord[CloudKitManager.key(.colorName)] = book.colorName
+                updatedRecord[CloudKitManager.key(.title)] = book.title
+                updatedRecord[CloudKitManager.key(.authorName)] = book.authorName
+                
+                CloudKitManager.publicDatabase.save(updatedRecord, completionHandler: { (record, error) in
+                    if let error = error {
+                        completion(error)
+                    } else {
+                        print("Saved updated record on cloud:", record!)
+                        
+                        // Add change record to cloud
+                        let newChange = Change(type: Change.Types.updated, timestamp: NSDate(), changedRecordname: book.recordName)
+                        CloudKitManager.insert(change: newChange) { (error) in
+                            completion(error)
+                        }
+                    }
+                })
+            }
+        }
+    }
+    
     // New change record
     static func insert(change: Change, completion: @escaping (Error?) -> Void) {
         let record = CKRecord(recordType: CloudKitManager.changeRecordType)
