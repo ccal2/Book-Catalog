@@ -26,3 +26,5 @@ Also make sure that the recordName field of both these types are queryable
 
 ### Changes
 All the changes made on the database should create a Change record. For the time being, all this work is done manually, but I intend to create something that will automate this process
+
+**Update:** If you make sure that all the changes made on the database are made through the app on the 'Book Catalog Creator' project, you don't have to worry about creating change records anymore. It will all be done automatically.
