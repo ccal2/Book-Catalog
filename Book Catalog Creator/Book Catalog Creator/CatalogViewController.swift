@@ -76,18 +76,10 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         alert.addTextField(configurationHandler: self.colorNameTextFieldConfiguration)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Save", style: .default, handler: { (UIAlertAction) in
-            let titleTextField = alert.textFields![0]
-            let authorNameTextField = alert.textFields![1]
-            let colorNameTextField = alert.textFields![2]
-            
-            let (title, authorName) = self.getTitleAndAuthorName(titleTextField, authorNameTextField)
-            let colorName = self.getColorName(colorNameTextField)
-            
-            var recordName = authorName + "--" + title
-            recordName = recordName.replacingOccurrences(of: " ", with: "_")
+            let newBook = self.getBook(fromTextFields: alert.textFields!)
             
             // Check if the book is already on the catalog
-            if Book.hasRecodName(recordName, inArray: self.books) {
+            if Book.hasRecodName(newBook.recordName, inArray: self.books) {
                 let repeatAlert = UIAlertController(title: "This book already exists", message: "You can only add different books to the catalog", preferredStyle: .alert)
                 repeatAlert.addAction(UIKit.UIAlertAction(title: "Ok", style: .default, handler: nil))
                 
@@ -97,7 +89,6 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
             }
             
             // Add new book to cloud
-            let newBook = Book(recordName: recordName, colorName: colorName, title: title, authorName: authorName)
             CloudKitManager.insert(book: newBook, completion: { (error) in
                 if !self.checkForNetworkFailure(error) {
                     self.books.append(newBook)
@@ -114,6 +105,26 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
     }
     
     // MARK: Get book information
+    
+    func getBook(fromTextFields textFields: [UITextField], withRecordName oldRecordName: String? = nil) -> Book{
+        let titleTextField = textFields[0]
+        let authorNameTextField = textFields[1]
+        let colorNameTextField = textFields[2]
+        
+        let (title, authorName) = self.getTitleAndAuthorName(titleTextField, authorNameTextField)
+        let colorName = self.getColorName(colorNameTextField)
+        
+        // get recordName
+        var recordName: String
+        if let oldRecordName = oldRecordName {  // when updating an existing record
+            recordName = oldRecordName
+        } else {
+            recordName = authorName + "--" + title
+            recordName = recordName.replacingOccurrences(of: " ", with: "_")
+        }
+        
+        return Book(recordName: recordName, colorName: colorName, title: title, authorName: authorName)
+    }
     
     func getTitleAndAuthorName(_ titleTextField: UITextField, _ authorNameTextField: UITextField)  -> (String, String) {
         // Check if the fields for book title and author name are empty
