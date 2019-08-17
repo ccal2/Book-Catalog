@@ -2,7 +2,7 @@
 iOS app that loads a book catalog from a CloudKit public database and updates its contents on each launch
 
 <p align="center">
-    <img src="/Screenshots/BookCatalog.PNG" width="250">
+    <img src="/Screenshots/BookCatalog.png" width="250">
 <p/>
 
 ## Reminder
