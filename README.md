@@ -1,5 +1,5 @@
 # Book Catalog
-iOS app that loads a book catalog from a CloudKit public database and updates its contents on each launch
+iOS app that loads a book catalog from a CloudKit public database and updates its contents on each launch without using submissions
 
 <p align="center">
     <img src="/Screenshots/BookCatalog.png" width="250">
