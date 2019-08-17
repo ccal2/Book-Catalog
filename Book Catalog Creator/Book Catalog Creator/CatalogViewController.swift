@@ -199,7 +199,7 @@ class CatalogViewController: UIViewController, UICollectionViewDelegate, UIColle
         actionSheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
             self.delete(book, at: indexPath.row)
         }))
-        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
     }
