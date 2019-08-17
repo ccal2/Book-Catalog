@@ -2,7 +2,7 @@
 iOS app that loads a book catalog from a CloudKit public database and updates its contents on each launch
 
 <p align="center">
-    <img src="/BookCatalog.PNG" width="250">
+    <img src="/Screenshots/BookCatalog.PNG" width="250">
 <p/>
 
 ## Reminder
@@ -33,7 +33,7 @@ All the changes made on the database should create a Change record. For the time
 iOS app to manage the database
 
 <p align="center">
-    <img src="/BookCatalogCreator_main.png" width="250">
-    <img src="/BookCatalogCreator_insert.png" width="250">
-    <img src="/BookCatalogCreator_options.png" width="250">
+    <img src="/Screenshots/BookCatalogCreator_main.png" width="250">
+    <img src="/Screenshots/BookCatalogCreator_insert.png" width="250">
+    <img src="/Screenshots/BookCatalogCreator_options.png" width="250">
 <p/>
